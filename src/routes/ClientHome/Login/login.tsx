@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { CredentialsDTO } from '../../../models/auth';
-import { LoginRequest } from '../../../services/auth-services';
 import './style.css'
+import * as authServices from '../../../services/auth-services'
+
 
 function Login() {
 
@@ -11,9 +12,12 @@ function Login() {
       password:  ''
    });
 
+   //exe a requst
    function handleSubmit(event : any) {
       event.preventDefault()
-      LoginRequest(fromData)
+      authServices.loginRequest(fromData).then(response => { console.log(response.data) })
+      .catch(error => {
+         console.log("error de login", error) })
    }
 
    function handleInputChange(event : any) {
