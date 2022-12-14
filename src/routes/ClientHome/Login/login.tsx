@@ -7,13 +7,23 @@ function Login() {
 
 
    const [fromData, setFromData] = useState<CredentialsDTO>({
-      username : '',
+      username: '',
       password:  ''
    });
 
    function handleSubmit(event : any) {
       event.preventDefault()
       LoginRequest(fromData)
+   }
+
+   function handleInputChange(event : any) {
+      //hook value of box
+      const value  = event.target.value;
+      //hook name of box
+      const name =  event.target.name;
+
+      //Atualizar o FromData 
+      setFromData({...fromData, [name]: value});
    }
 
 
@@ -26,13 +36,15 @@ function Login() {
                   <h2>Login</h2>
                   <div className="dsc-form-controls-container">
                      <div>
-                        <input 
-                        className="dsc-form-control " 
+                        <input name='username' 
+                        value={fromData.username} onChange={handleInputChange}
+                        className="dsc-form-control "  
                         type="text" placeholder="Email" />
                            <div className="dsc-form-error">Campo obrigatório</div>
                      </div>
                      <div>
-                        <input 
+                        <input name='password'
+                        value={fromData.password} onChange={handleInputChange}
                         className="dsc-form-control" 
                         type="password" placeholder="Senha" />
                      </div>
