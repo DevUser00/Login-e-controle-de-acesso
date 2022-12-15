@@ -12,7 +12,7 @@ function Login() {
       password:  ''
    });
 
-   //exe a requst
+   //.exe a requst
    function handleSubmit(event : any) {
       event.preventDefault()
       authServices.loginRequest(fromData).then(response => { console.log(response.data) })
