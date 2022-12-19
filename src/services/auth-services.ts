@@ -1,10 +1,11 @@
 import { AxiosRequestConfig } from "axios";
 import QueryString from "qs";
-import { CredentialsDTO } from "../models/auth";
+import { AccessTokenPayloadDTO, CredentialsDTO } from "../models/auth";
 import { requestBackend } from "../utils/requests";
 import { CLIENT_ID, CLIENT_SECRET } from "../utils/system";
 import * as accessTokenRepository from '../localstorege/access-token-repository'
- 
+import jwtDecode from "jwt-decode";
+
 //Send a request for back-end assemble according to the rule
 export function loginRequest(loginData: CredentialsDTO) {
 
@@ -46,4 +47,21 @@ export function saveAccessToken(token: string) {
 //Get token of access
 export function getAccessToken() {
    return accessTokenRepository.get();
+}
+
+//Pega o obj dentro do token
+export function getAccessTokenPayload(): AccessTokenPayloadDTO | undefined {
+   try {
+      const token = accessTokenRepository.get();
+      return token == null ? undefined : (jwtDecode(token) as AccessTokenPayloadDTO);
+   } catch (error) {
+      return undefined;
+   }
+}
+
+//Verificar se esta authenticado
+export function isAuthenticated(): boolean {
+   let tokenPayload = getAccessTokenPayload();
+   //verificar ser exp do user é maior que Date.now
+   return tokenPayload && tokenPayload.exp * 1000 > Date.now() ? true : false;
 }

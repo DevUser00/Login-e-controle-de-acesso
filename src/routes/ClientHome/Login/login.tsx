@@ -18,7 +18,7 @@ function Login() {
       authServices.loginRequest(fromData)
          .then(response => {
             authServices.saveAccessToken(response.data.access_token);
-            console.log(response.data)
+            console.log(authServices.getAccessTokenPayload())
          })
          .catch(error => {
             console.log("error de login", error)
