@@ -4,6 +4,7 @@ import './style.css'
 import * as userServices from '../../../services/user-services';
 
 function AdminHome() {
+   
 
    const [user, setUser] = useState<UserDTO>();
 
@@ -12,10 +13,7 @@ function AdminHome() {
       .then(reponse => {
          setUser(reponse.data)
          console.log(reponse.data)
-      })
-      .catch(err => {
-         console.log(err)
-      })   
+      });
    }, []); 
    
    return (
