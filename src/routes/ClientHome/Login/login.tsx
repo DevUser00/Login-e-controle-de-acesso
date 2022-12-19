@@ -12,10 +12,13 @@ function Login() {
       password:  ''
    });
 
-   //.exe a requst
+   //.fazer a requisiçao para backend e salva o token
    function handleSubmit(event : any) {
       event.preventDefault()
-      authServices.loginRequest(fromData).then(response => { console.log(response.data) })
+      authServices.loginRequest(fromData)
+      .then(response => { 
+         authServices.saveAccessToken(response.data.access_token);
+         console.log(response.data) })
       .catch(error => {
          console.log("error de login", error) })
    }
