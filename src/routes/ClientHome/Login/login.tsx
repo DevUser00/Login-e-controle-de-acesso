@@ -9,28 +9,30 @@ function Login() {
 
    const [fromData, setFromData] = useState<CredentialsDTO>({
       username: '',
-      password:  ''
+      password: ''
    });
 
    //.fazer a requisiçao para backend e salva o token
-   function handleSubmit(event : any) {
+   function handleSubmit(event: any) {
       event.preventDefault()
       authServices.loginRequest(fromData)
-      .then(response => { 
-         authServices.saveAccessToken(response.data.access_token);
-         console.log(response.data) })
-      .catch(error => {
-         console.log("error de login", error) })
+         .then(response => {
+            authServices.saveAccessToken(response.data.access_token);
+            console.log(response.data)
+         })
+         .catch(error => {
+            console.log("error de login", error)
+         })
    }
 
-   function handleInputChange(event : any) {
+   function handleInputChange(event: any) {
       //hook value of box
-      const value  = event.target.value;
+      const value = event.target.value;
       //hook name of box
-      const name =  event.target.name;
+      const name = event.target.name;
 
       //Atualizar o FromData 
-      setFromData({...fromData, [name]: value});
+      setFromData({ ...fromData, [name]: value });
    }
 
 
@@ -43,17 +45,17 @@ function Login() {
                   <h2>Login</h2>
                   <div className="dsc-form-controls-container">
                      <div>
-                        <input name='username' 
-                        value={fromData.username} onChange={handleInputChange}
-                        className="dsc-form-control "  
-                        type="text" placeholder="Email" />
-                           <div className="dsc-form-error">Campo obrigatório</div>
+                        <input name='username'
+                           value={fromData.username} onChange={handleInputChange}
+                           className="dsc-form-control "
+                           type="text" placeholder="Email" />
+                        <div className="dsc-form-error">Campo obrigatório</div>
                      </div>
                      <div>
                         <input name='password'
-                        value={fromData.password} onChange={handleInputChange}
-                        className="dsc-form-control" 
-                        type="password" placeholder="Senha" />
+                           value={fromData.password} onChange={handleInputChange}
+                           className="dsc-form-control"
+                           type="password" placeholder="Senha" />
                      </div>
                   </div>
 
