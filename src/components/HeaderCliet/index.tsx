@@ -4,8 +4,13 @@ import { Link } from 'react-router-dom';
 import CartIcon from '../CartIcon';
 import iconAdmin from '../../assets/admin.svg'
 import * as authServices from '../../services/auth-services'
+import { useContext } from 'react';
+import { ContextToken } from '../../utils/context-token';
 
 export default function HeaderClient() {
+
+  //Observar o estado do token da aplicação
+  const {contextTokenPayload} = useContext(ContextToken)
 
   return (
     <>
@@ -18,6 +23,7 @@ export default function HeaderClient() {
             <div className="dsc-menu-items-container">
 
               {
+                contextTokenPayload &&
                 authServices.hasAnyRoles(['ROLE_ADMIN']) &&
                 <Link to="/admin">
                   <div className="dsc-menu-item">

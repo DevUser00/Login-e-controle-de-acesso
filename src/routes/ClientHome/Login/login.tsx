@@ -1,11 +1,14 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { CredentialsDTO } from '../../../models/auth';
 import './style.css'
 import * as authServices from '../../../services/auth-services'
 import { useNavigate } from 'react-router-dom';
+import { ContextToken } from '../../../utils/context-token';
 
 
 function Login() {
+
+   const { setContextTokenPayload } = useContext(ContextToken)
 
    const navigate = useNavigate();
 
@@ -14,12 +17,13 @@ function Login() {
       password: ''
    });
 
-   //.fazer a requisiçao para backend e salva o token(Login)
+   //Faz uma requisiçao para backend para o login e salvando o token
    function handleSubmit(event: any) {
       event.preventDefault()
       authServices.loginRequest(fromData)
          .then(response => {
             authServices.saveAccessToken(response.data.access_token);
+            setContextTokenPayload(authServices.getAccessTokenPayload())
             navigate('/cart')
             console.log(authServices.getAccessTokenPayload())
          })
