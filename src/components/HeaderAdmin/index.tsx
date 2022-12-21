@@ -1,5 +1,6 @@
 import home from '../../assets/home.png'
-import produtos from '../../assets/produtos.png' 
+import produtos from '../../assets/produtos.png'
+import LoggedUser from '../LoggedUser';
 
 import './style.css'
 
@@ -7,7 +8,7 @@ import './style.css'
 
 function HeaderAdmin() {
    return (
-      <> 
+      <>
          <header className="dsc-header-admin">
             <nav className="dsc-container">
                <h1>DSC Admin</h1>
@@ -22,10 +23,7 @@ function HeaderAdmin() {
                         <p className="dsc-menu-item-active">Produtos</p>
                      </div>
                   </div>
-                  <div className="dsc-logged-user">
-                     <p>Maria Silva</p>
-                     <a href="#">Sair</a>
-                  </div>
+                  <LoggedUser></LoggedUser>
                </div>
             </nav>
          </header>
