@@ -1,12 +1,16 @@
-import { useContext, useEffect, useState } from 'react';
 import './style.css'
+import { useContext, useEffect, useState } from 'react';
 import * as cartServices from '../../services/cart-services'
+import * as orderService from '../../services/order-services'
 import { OrderDTO } from '../../models/order';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ContextCartCount } from '../../utils/context-cart';
 
 
 function Cart() {
+
+   const navigate = useNavigate();
+
    //instacia o "carrinho que tiver no localstorege"
    const [cart, setCard] = useState<OrderDTO>(cartServices.getCart())
 
@@ -36,6 +40,13 @@ function Cart() {
       setContextCartCount(newCart.items.length)
    }
 
+   function handlePlaceOrderClick() {
+      orderService.placeOrderRequest(cart).then(reponse => {
+         cartServices.clearCart()
+         setContextCartCount(0)
+         navigate(`/confirmation/${reponse.data.id}`)
+      })
+   }
 
    return (
       <>
@@ -80,7 +91,7 @@ function Cart() {
 
 
                <div className="dsc-btn-page-container">
-                  <div className="dsc-btn dsc-btn-blue">
+                  <div onClick={handlePlaceOrderClick} className="dsc-btn dsc-btn-blue">
                      Finalizar pedido
                   </div>
 
