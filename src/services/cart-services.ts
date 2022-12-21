@@ -43,7 +43,7 @@ export function increaseItem(productId: number) {
       cartRepository.save(cart);
    }
 }
-
+//Decrementa item no carrinho
 export function decreaseItem(productId: number) {
    const cart = cartRepository.get();
    const item = cart.items.find(x => x.productId === productId);

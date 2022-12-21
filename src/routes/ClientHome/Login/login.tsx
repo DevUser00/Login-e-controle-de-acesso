@@ -2,22 +2,25 @@ import { useState } from 'react';
 import { CredentialsDTO } from '../../../models/auth';
 import './style.css'
 import * as authServices from '../../../services/auth-services'
+import { useNavigate } from 'react-router-dom';
 
 
 function Login() {
 
+   const navigate = useNavigate();
 
    const [fromData, setFromData] = useState<CredentialsDTO>({
       username: '',
       password: ''
    });
 
-   //.fazer a requisiçao para backend e salva o token
+   //.fazer a requisiçao para backend e salva o token(Login)
    function handleSubmit(event: any) {
       event.preventDefault()
       authServices.loginRequest(fromData)
          .then(response => {
             authServices.saveAccessToken(response.data.access_token);
+            navigate('/cart')
             console.log(authServices.getAccessTokenPayload())
          })
          .catch(error => {

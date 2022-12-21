@@ -9,6 +9,7 @@ type Props = {
 
 //coloca um componete filho dentro d um componente
 export function PrivateRoute({ children, roles = [] }: Props) {
+   //faça os testes para ver qual a autenticado do cliente 
    if (!authService.isAuthenticated()) {
       return <Navigate to="/login" />;
    }

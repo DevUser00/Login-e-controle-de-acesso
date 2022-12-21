@@ -35,7 +35,7 @@ function App() {
             <PrivateRoute roles={['ROLE_ADMIN']} >
               <Admin />
             </PrivateRoute>
-          } >
+          }>
             <Route index element={<AdminHome />} />
 
           </Route>
